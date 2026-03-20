@@ -51,7 +51,7 @@ To address the aforementioned limitations, future development could include:
 
 ## Authors:
 
-* Nguyễn Phúc Gia Bảo ([KevinCrazy678] (https://github.com/Kevincrazy678))
-* Trần Kiên Cường ([cuong0001] (https://github.com/cuong0001))
-* Nguyễn Ngọc Phúc Nguyên ([Nguynie] (https://github.com/Nguynie))
+* Nguyễn Phúc Gia Bảo ([KevinCrazy678](https://github.com/Kevincrazy678))
+* Trần Kiên Cường ([cuong0001](https://github.com/cuong0001))
+* Nguyễn Ngọc Phúc Nguyên ([Nguynie](https://github.com/Nguynie))
 
