@@ -63,7 +63,7 @@ def cheat_comment(code, lang):
         if s.startswith('#') or s.endswith('\\'): is_fragile = True
         
         if not is_fragile and any(k in s for k in ['for', 'while', 'if', 'else', 'return', 'void', 'int ', 'def ']):
-            if random.random() < 0.5: # 50% tỉ lệ
+            if random.random() < 0.5:
                 junk = random_string(8)
                 if lang == 'python':
                      new_lines.append(f'{indent}{open_blk} CHECK POINT [{junk}] {close_blk}')
@@ -88,6 +88,7 @@ def cheat_rename(code, lang):
     lines = code.split('\n')
     new_lines = []
     safe_indices = []
+    
     for i, line in enumerate(lines):
         s = line.strip()
         is_safe = True
@@ -98,10 +99,13 @@ def cheat_rename(code, lang):
 
     safe_text = "\n".join([lines[i] for i in safe_indices])
     
-    vars_found = [v for v in COMMON_VARS if re.search(rf"\b{v}\b", safe_text)]
+    text_no_strings = re.sub(r'".*?"', '', safe_text)
+    text_no_strings = re.sub(r"'.*?'", '', text_no_strings)
+
+    vars_found = [v for v in COMMON_VARS if re.search(rf"\b{v}\b", text_no_strings)]
     if not vars_found:
-        raw = re.findall(r"\b[a-z]{1,2}\b", safe_text)
-        vars_found = [v for v in raw if v not in KEYWORDS]
+        raw = re.findall(r"\b[a-zA-Z_]\w*\b", text_no_strings)
+        vars_found = [v for v in raw if v not in KEYWORDS and len(v) <= 4]
 
     mapping = {}
     if vars_found:
@@ -113,7 +117,7 @@ def cheat_rename(code, lang):
         line = lines[i]
         if i in safe_indices:
             for old, new in mapping.items():
-                line = re.sub(rf"\b{old}\b", new, line)
+                line = re.sub(rf"(?<![%\\\.])\b{old}\b", new, line)
         new_lines.append(line)
     
     cmt = "#" if lang == 'python' else "//"
@@ -130,7 +134,7 @@ def cheat_format(code, lang):
             new_lines.append((" " * random.randint(0, 4)) + s)
         else:
             new_lines.append(line)
-        if random.random() < 0.3: new_lines.append("") # Thêm dòng trống
+        if random.random() < 0.3: new_lines.append("")
     return f"{cmt} CHEAT TYPE: Reformatting\n" + "\n".join(new_lines)
 
 def cheat_header(code, lang):
@@ -173,11 +177,11 @@ def main():
     count_created = 0
 
     problems = os.listdir(DATASET_ROOT)
-    for p_folder in problems: # VD: 4A
+    for p_folder in problems:
         p_path = os.path.join(DATASET_ROOT, p_folder)
         if not os.path.isdir(p_path): continue
         
-        for l_folder in os.listdir(p_path): # VD: 4A-C
+        for l_folder in os.listdir(p_path):
             l_path = os.path.join(p_path, l_folder)
             if not os.path.isdir(l_path): continue
             
