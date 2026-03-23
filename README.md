@@ -20,7 +20,7 @@ This project is part of the course CSC10004 - DSA at [VNU-HCMUS](https://hcmus.e
 
 ```bash
 # 1. Compile the source code into an executable named 'main'
-g++ src/main.cpp src/winnowing.cpp src/boilerplate.cpp -o main -O3
+g++ src/main.cpp src/winnowing.cpp src/boilerplate.cpp src/tokenizer.cpp -o main -O3
 
 # 2. Run the evaluation
 ./main
