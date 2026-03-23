@@ -67,7 +67,6 @@ int main() {
         getline(ss, pair_type, ',');
         getline(ss, gt_str, ',');
 
-        // Sử dụng Lambda trimPath ở đây
         f1 = trimPath(f1);
         f2 = trimPath(f2);
         int ground_truth = stoi(trimPath(gt_str));
@@ -110,7 +109,8 @@ int main() {
     remove(tokenFile1.c_str()); remove(tokenFile2.c_str());
     inFile.close(); outFile.close();
 
-    cout << "Results:\n";
+    cout << "\n Results:\n";
+    cout << "Total file pairs: " << count << "\n";
     cout << " - [TP] True Positives:  " << tp << "\n";
     cout << " - [FP] False Positives: " << fp << "\n";
     cout << " - [TN] True Negatives:  " << tn << "\n";
