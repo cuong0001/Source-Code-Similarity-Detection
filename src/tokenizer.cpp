@@ -28,17 +28,17 @@ string tokenizeCode(const string& code) {
                 word += code[i++];
             }
             
-            if (types.count(word)) result += "[TYPE] ";
-            else if (word == "for") result += "[KW_FOR] ";
-            else if (word == "while") result += "[KW_WHILE] ";
-            else if (word == "if") result += "[KW_IF] ";
-            else if (word == "else" || word == "elif") result += "[KW_ELSE] ";
-            else if (word == "return") result += "[KW_RETURN] ";
-            else if (word == "def" || word == "class") result += "[KW_DEF] ";
-            else if (word == "and" || word == "or" || word == "not") result += "[LOGIC] ";
-            else if (word == "const") result += "[KW_CONST] ";
-            else if (bool_literals.count(word)) result += "[BOOL_LITERAL] ";
-            else result += "[ID] ";
+            if (types.count(word)) result += "[TYPE]";
+            else if (word == "for") result += "[FOR]";
+            else if (word == "while") result += "[WHILE]";
+            else if (word == "if") result += "[IF]";
+            else if (word == "else" || word == "elif") result += "[ELSE]";
+            else if (word == "return") result += "[RETURN]";
+            else if (word == "def" || word == "class") result += "[DEF]";
+            else if (word == "and" || word == "or" || word == "not") result += "[LOGIC]";
+            else if (word == "const") result += "[CONST]";
+            else if (bool_literals.count(word)) result += "[BOOL]"; 
+            else result += "[ID]";
         } 
 
         else if (isdigit(c)) {
