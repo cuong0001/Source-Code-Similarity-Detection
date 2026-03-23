@@ -1,4 +1,4 @@
-# Source-Code-Similarity-Detection
+# Source Code Similarity Detection
 
 Source Code Similarity Detection project - Detecting structural similarities using the Winnowing algorithm.
 
