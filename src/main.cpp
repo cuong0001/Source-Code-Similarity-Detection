@@ -51,7 +51,7 @@ int main() {
     string tokenFile1 = "temp1.token", tokenFile2 = "temp2.token";
 
     string line;
-    int count = 0;
+    int count = 0; 
 
     cout << "Scanning data.." << endl;
 
