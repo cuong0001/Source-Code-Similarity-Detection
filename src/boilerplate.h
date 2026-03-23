@@ -18,6 +18,11 @@ Language detectLanguage(const std::string& filename);
 std::string removeCppComments(const std::string& raw);
 std::string removePythonComments(const std::string& raw);
 
+// Boilerplate detection and string utilities
+std::string trim(const std::string& str);
+bool isCppBoilerplate(const std::string& line);
+bool isPythonBoilerplate(const std::string& line);
+
 // Main pipeline
 void preprocessForWinnowing(std::string inputFilename, std::string outputFilename);
 

@@ -99,3 +99,20 @@ string removePythonComments(const string& raw) {
     }
     return result;
 }
+
+string trim(const string& str) {
+    size_t first = str.find_first_not_of(" \t\r\n");
+    if (string::npos == first) return "";
+    size_t last = str.find_last_not_of(" \t\r\n");
+    return str.substr(first, (last - first + 1));
+}
+
+bool isCppBoilerplate(const string& line) {
+    if (line.empty() || line[0] == '#' || line.compare(0, 5, "using") == 0) return true; 
+    return false;
+}
+
+bool isPythonBoilerplate(const string& line) {
+    if (line.empty() || line.compare(0, 6, "import") == 0 || line.compare(0, 4, "from") == 0) return true;   
+    return false;
+}
