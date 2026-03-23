@@ -52,3 +52,50 @@ void preprocessForWinnowing(string inputFilename, string outputFilename) {
     inFile.close();
     outFile.close();
 }
+
+Language detectLanguage(const string& filename) {
+    if (filename.length() >= 4 && filename.substr(filename.length() - 4) == ".cpp") return Language::CPP;
+    if (filename.length() >= 2 && filename.substr(filename.length() - 2) == ".c") return Language::CPP;
+    if (filename.length() >= 3 && filename.substr(filename.length() - 3) == ".py") return Language::PYTHON;
+    return Language::UNKNOWN;
+}
+
+string removeCppComments(const string& raw) {
+    string result = "";
+    bool inString = false, inChar = false, inSingleComment = false, inMultiComment = false;
+    for (size_t i = 0; i < raw.length(); ++i) {
+        if (inSingleComment) { if (raw[i] == '\n') { inSingleComment = false; result += raw[i]; } } 
+        else if (inMultiComment) { if (raw[i] == '*' && i + 1 < raw.length() && raw[i+1] == '/') { inMultiComment = false; i++; } } 
+        else if (inString) { result += raw[i]; if (raw[i] == '\\' && i + 1 < raw.length()) result += raw[++i]; else if (raw[i] == '"') inString = false; } 
+        else if (inChar) { result += raw[i]; if (raw[i] == '\\' && i + 1 < raw.length()) result += raw[++i]; else if (raw[i] == '\'') inChar = false; } 
+        else {
+            if (raw[i] == '/' && i + 1 < raw.length() && raw[i+1] == '/') { inSingleComment = true; i++; } 
+            else if (raw[i] == '/' && i + 1 < raw.length() && raw[i+1] == '*') { inMultiComment = true; i++; } 
+            else if (raw[i] == '"') { inString = true; result += raw[i]; } 
+            else if (raw[i] == '\'') { inChar = true; result += raw[i]; } 
+            else { result += raw[i]; }
+        }
+    }
+    return result;
+}
+
+string removePythonComments(const string& raw) {
+    string result = "";
+    bool inString1 = false, inString2 = false, inDocstring1 = false, inDocstring2 = false, inComment = false; 
+    for (size_t i = 0; i < raw.length(); ++i) {
+        if (inComment) { if (raw[i] == '\n') { inComment = false; result += raw[i]; } } 
+        else if (inDocstring1) { if (raw[i] == '\\' && i + 1 < raw.length()) i++; else if (raw[i] == '\'' && i+2 < raw.length() && raw[i+1] == '\'' && raw[i+2] == '\'') { inDocstring1 = false; i += 2; } } 
+        else if (inDocstring2) { if (raw[i] == '\\' && i + 1 < raw.length()) i++; else if (raw[i] == '"' && i+2 < raw.length() && raw[i+1] == '"' && raw[i+2] == '"') { inDocstring2 = false; i += 2; } } 
+        else if (inString1) { result += raw[i]; if (raw[i] == '\\' && i + 1 < raw.length()) result += raw[++i]; else if (raw[i] == '\'') inString1 = false; } 
+        else if (inString2) { result += raw[i]; if (raw[i] == '\\' && i + 1 < raw.length()) result += raw[++i]; else if (raw[i] == '"') inString2 = false; } 
+        else {
+            if (raw[i] == '#') { inComment = true; } 
+            else if (raw[i] == '\'' && i+2 < raw.length() && raw[i+1] == '\'' && raw[i+2] == '\'') { inDocstring1 = true; i += 2; } 
+            else if (raw[i] == '"' && i+2 < raw.length() && raw[i+1] == '"' && raw[i+2] == '"') { inDocstring2 = true; i += 2; } 
+            else if (raw[i] == '\'') { inString1 = true; result += raw[i]; } 
+            else if (raw[i] == '"') { inString2 = true; result += raw[i]; } 
+            else { result += raw[i]; }
+        }
+    }
+    return result;
+}
