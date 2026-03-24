@@ -1,4 +1,4 @@
-# Source-Code-Similarity-Detection
+# Source Code Similarity Detection
 
 Source Code Similarity Detection project - Detecting structural similarities using the Winnowing algorithm.
 
@@ -50,8 +50,12 @@ The experiment was conducted on a dataset of **1350 pairs**, yielding an **Accur
 
 #### Similarity Measurement
 
-To measure similarity between two source code files, we use **Jaccard Similarity** over the fingerprint sets: 
-$$ Similarity(A, B) = \frac{|F(A) \cap F(B)|}{|F(A) \cup F(B)|} $$ 
+To measure similarity between two source code files, we use **Jaccard Similarity** over the fingerprint sets:
+
+$$
+Similarity(A, B) = \frac{|F(A) \cap F(B)|}{|F(A) \cup F(B)|}
+$$
+
 In which: 
 * $|F(A) \cap F(B)|$: The number of shared fingerprints between two files. 
 * $|F(A) \cup F(B)|$: The total number of unique fingerprints from both files.
