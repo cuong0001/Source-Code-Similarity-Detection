@@ -83,7 +83,9 @@ In which:
 
 ####  Key Performance Indicators:
 
-We utilize standard data science metrics to evaluate the reliability of our detection engine at the $60\%$ threshold:
+We utilize standard data science metrics to evaluate the reliability of our detection engine at the 60% threshold:
+* **Accuracy ($A = \frac{TP + TN}{Total}$): 93.19%**
+    * While the dataset reflects a natural imbalance (far more independent pairs than obfuscated ones), an overall accuracy of 93.19% confirms the baseline engine correctly classifies the vast majority of all cases, serving as a highly stable foundation.
 * **Recall ($R = \frac{TP}{TP + FN}$): 98.00%**
     * With a near-perfect score, the system acts as a **comprehensive safety net**. It ensures that almost no suspicious similarity goes undetected, providing peace of mind for instructors. In a high-stakes academic environment, catching $98\%$ of variants—even those with significant obfuscation—is a major success for structural-based detection.
 * **Precision ($P = \frac{TP}{TP + FP}$): 62.29%**
