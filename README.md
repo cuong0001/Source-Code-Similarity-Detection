@@ -8,7 +8,7 @@ This project is part of the course CSC10004 - DSA at [VNU-HCMUS](https://hcmus.e
 
 * **Video Presentation (10-minute):** 
 
-[![Watch the video here](https://img.youtube.com/vi/_EnhDvOn-3w/mqdefault.jpg)](https://www.youtube.com/watch?v=_EnhDvOn-3w)
+[![Watch the video here](https://img.youtube.com/vi/86EQKcLe2Yg/mqdefault.jpg)](https://www.youtube.com/watch?v=86EQKcLe2Yg)
 * **Dataset & Ground-truth:** Located in `./dataset` (Contains crawled [Codeforces](https://codeforces.com/) submissions and the evaluation pair mapping).
 * **Utility Scripts:** Located in `./scripts` (Python scripts for crawling and data generation).
 
