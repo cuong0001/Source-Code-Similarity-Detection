@@ -36,11 +36,12 @@ In academic and competitive programming environments, verifying the originality 
 ### 2. Finalized Dataset
 * **Source:** Real-world "Accepted" Codeforces submissions. 
 * **Dataset Size:** **1350 File Pairs** mapped in `dataset_pairs.csv` (`Label 1`: Base-Variant, `Label 0`: Independent).
-* **Data Generation:** We engineered a Python script (`similar_code_gen.py`) to automatically generate highly-obfuscated "cheat" variants (variable renaming, useless comments, spacing, extra headers) to rigorously stress-test the algorithm.
+* **Data Generation:** We engineered a Python script (`similar_code_gen.py`) to automatically generate highly-obfuscated "cheat" variants (variable renaming, useless comments, spacing, extra headers) to stress-test the algorithm. Additionally, we checked the generated variants to make sure they do not change the code logic, and added some changes such as random line breaks, more #define macro.
 
 ### 3. Core Algorithm & Implementation
 We utilized the **Winnowing algorithm** to extract document fingerprints, heavily optimized for both accuracy and execution speed:
-* **Preprocessing:** Remove whitespaces, comments, and **common boilerplate** (e.g., `#include <bits/stdc++.h>`) to minimize False Positives. 
+* **Preprocessing:** Remove whitespaces, comments, and **common boilerplate** (e.g., `#include <bits/stdc++.h>`) to minimize False Positives.
+* **Tokenize:** Maps variables, function names, and standard library calls to generic tokens (e.g., [ID], [TYPE], [FOR]). This helps neutralize variable-renaming attempts and extracts the pure structural skeleton of the code.
 * **Rolling Hash:** Generates $k$-gram hashes in $O(1)$ time. 
 * **Monotonic Queue (`std::deque`):** Maintains the minimum hash value within a sliding window $w$, reducing the overall algorithm complexity to an optimal $O(N)$.
 
